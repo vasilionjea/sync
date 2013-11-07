@@ -1,3 +1,3 @@
 ## Sync 
 
-Exploring Data Binding with jQuery
+Exploring 2-way Data Binding with jQuery.
