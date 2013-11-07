@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> jQuery Sync - Simple Data Binding for jQuery projects </title>
+</head>
+<body>
+<!-- 
+  Elements that have a "data-sync-user" attribute are bound to 
+  the User model property that match the attribute's value. 
+-->
+<p>The user is: <input type="text" data-sync-user="name"></p> <hr>
+<p>The user says:<br> <textarea data-sync-user="greeting" cols="40" rows="14"></textarea> </p>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/user_model.js"></script>
+<script>
+
+  // Create a new user with id 'user'
+  var user = new User('user');
+  user.set('name', 'Guest-X07');
+
+
+  function update_greeting(msg) {
+    user.set('greeting', (user.get('greeting') || '') + msg);
+    console.log(user);
+  }
+
+  setTimeout(function () {
+    update_greeting('Hello! I am user: ' + user.get('name') + '.\n');
+
+    setTimeout(function () {
+      update_greeting('I \'m synced with my model!\n');
+      setTimeout(function () { update_greeting('Whenever the model changes I change.\n'); },2000);
+      setTimeout(function () { update_greeting('Whenever I change the model changes. \n\n'); },4000);
+
+      setTimeout(function () { 
+        update_greeting('We are always in sync!\n\n');
+        update_greeting('Try it for your self.\nType the following in the console: \n\n');
+
+        setTimeout(function() {
+          update_greeting("user.set('greeting', 'See how I changed?');\n");
+          update_greeting("user.get('greeting');\n")
+        }, 1200);
+      },6000);
+    }, 3000);
+  }, 1600);
+
+</script>
+</body>
